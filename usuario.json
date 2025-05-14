@@ -1,1 +1,32 @@
-[]
+[
+    {
+        "usuario": "Igor",
+        "senha": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "tipo": "usuario",
+        "genero": "masculino"
+    },
+    {
+        "usuario": "Kaua",
+        "senha": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "tipo": "usuario",
+        "genero": "masculino"
+    },
+    {
+        "usuario": "Vitor",
+        "senha": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "tipo": "usuario",
+        "genero": "masculino"
+    },
+    {
+        "usuario": "Gabriela",
+        "senha": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "tipo": "usuario",
+        "genero": "feminino"
+    },
+    {
+        "usuario": "Vit\u00f3ria",
+        "senha": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "tipo": "usuario",
+        "genero": "feminino"
+    }
+]

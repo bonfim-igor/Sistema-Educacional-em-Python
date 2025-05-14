@@ -49,9 +49,9 @@ def cadastrar_usuario():
     # Carrega a lista de usuários existentes a partir do arquivo JSON
     usuarios = carregar_dados(USUARIO_ARQUIVO)
     # Solicita ao usuário o nome de usuário que deseja cadastrar
-    usuario = input("Nome de usuário: ")
+    usuario = input("Informe o usuário: ")
     # Solicita ao usuário a senha desejada para o cadastro
-    senha = input("Senha: ")
+    senha = input("Informe a senha: ")
 
     # Verifica se o nome de usuário já está cadastrado no sistema
     for u in usuarios:
@@ -92,8 +92,8 @@ def autenticar_usuario():
     # Loop contínuo até que o usuário forneça credenciais válidas
     while True:
         # Solicita ao usuário que informe seu nome de usuário e senha
-        usuario = input("Usuário: ")
-        senha = input("Senha: ")
+        usuario = input("Informe o usuário: ")
+        senha = input("Informe a senha: ")
         
         # Aplica uma função de hash à senha fornecida para garantir que seja comparada de forma segura
         senha_hash = hash_senha(senha)
@@ -122,36 +122,71 @@ def autenticar_usuario():
 def ver_cursos(usuario):
     # Carrega a lista de cursos disponíveis a partir do arquivo JSON
     cursos = carregar_dados(CURSO_ARQUIVO)
-    
-    # Se não houver cursos cadastrados, exibe uma mensagem e retorna
+
+    # Verifica se a lista de cursos está vazia
     if not cursos:
         print("Nenhum curso disponível.")
         return
 
-    # Exibe a lista de cursos organizada por nível (iniciante, intermediário, avançado)
-    print("\nCursos por nível:")
+    # Mapeia os níveis de cursos para facilitar a navegação
+    niveis = ["iniciante", "intermediário", "avançado"]
 
-    # Itera sobre cada nível para mostrar os cursos correspondentes
-    for nivel in ["iniciante", "intermediário", "avançado"]:
-        print(f"\nNível: {nivel.upper()}")
-        
-        # Filtra os cursos que pertencem ao nível atual
+    while True:
+        print("\n=== MENU DE CURSOS ===")
+        print("[1] Cursos Iniciante")
+        print("[2] Cursos Intermediário")
+        print("[3] Cursos Avançado")
+        print("[4] Voltar ao menu principal")
+        opcao = input("Escolha uma opção entre (1-4): ").strip()
+
+        # Verifica se a opção é para voltar ao menu principal
+        if opcao == "4":
+            break
+
+        # Valida a escolha do nível
+        if opcao not in ["1", "2", "3"]:
+            print("Opção inválida.")
+            continue
+
+        # Seleciona o nível correspondente
+        nivel = niveis[int(opcao) - 1]
+        # Filtra os cursos pelo nível selecionado
         cursos_nivel = [c for c in cursos if c["nivel"] == nivel]
-        
-        # Se existirem cursos no nível, os exibe
-        if cursos_nivel:
-            for curso in cursos_nivel:
-                print(f"• {curso['nome']} — {curso['conteudo']}")
-        else:
-            # Se não houver cursos no nível, exibe uma mensagem informando
-            print("   Nenhum curso neste nível.")
-    
+
+        # Verifica se há cursos cadastrados para o nível selecionado
+        if not cursos_nivel:
+            print(f"Não há cursos cadastrados para o nível {nivel}.")
+            continue
+
+        while True:
+            print(f"\n=== CURSOS NÍVEL {nivel.upper()} ===")
+            for idx, curso in enumerate(cursos_nivel, 1):
+                print(f"[{idx}] {curso['nome']}")
+            print(f"[{len(cursos_nivel) + 1}] Voltar")
+
+            escolha = input("Escolha um curso para ver o conteúdo: ").strip()
+
+            # Verifica se a escolha é para voltar
+            if escolha == str(len(cursos_nivel) + 1):
+                break
+
+            # Verifica se a escolha está dentro do intervalo válido
+            if not escolha.isdigit() or int(escolha) < 1 or int(escolha) > len(cursos_nivel):
+                print("Opção inválida.")
+                continue
+
+            # Mostra o conteúdo do curso escolhido
+            curso_selecionado = cursos_nivel[int(escolha) - 1]
+            print(f"\nConteúdo do curso '{curso_selecionado['nome']}':")
+            print(curso_selecionado['conteudo'])
+            input("\nPressione Enter para voltar ao menu de cursos.")
+
     # Carrega a lista de acessos ao arquivo JSON
     acessos = carregar_dados(ACESSO_ARQUIVO)
-    
+
     # Registra o acesso do usuário, incluindo seu nome de usuário e o número de cursos disponíveis
     acessos.append({"usuario": usuario["usuario"], "curso_count": len(cursos)})
-    
+
     # Salva a lista de acessos atualizada no arquivo de acessos
     salvar_dados(ACESSO_ARQUIVO, acessos)
 
@@ -272,7 +307,7 @@ def menu_usuario_autenticado(usuario):
         print("[2] Avaliar curso")
         print("[3] Excluir minha conta")
         print("[4] Logout")
-        opcao = input("Escolha entre (1-4): ")
+        opcao = input("Escolha uma opção entre (1-4): ")
 
         if opcao == "1":
             ver_cursos(usuario)

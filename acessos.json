@@ -1,1 +1,46 @@
-[]
+[
+    {
+        "usuario": "Igor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Igor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Igor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Igor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Igor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Igor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Igor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Igor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Kaua",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Vitor",
+        "curso_count": 6
+    },
+    {
+        "usuario": "Vit\u00f3ria",
+        "curso_count": 6
+    }
+]

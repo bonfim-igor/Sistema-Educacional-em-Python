@@ -9,7 +9,7 @@ def main():
         print("[1] Entrar como usuário")
         print("[2] Entrar como administrador")
         print("[3] Sair")
-        opcao = input("Escolha entre (1-3): ")
+        opcao = input("Escolha uma opção entre (1-3): ")
 
         if opcao == "1":
             menu_usuario()
