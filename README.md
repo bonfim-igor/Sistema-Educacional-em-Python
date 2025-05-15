@@ -35,12 +35,12 @@ O sistema utiliza arquivos JSON para armazenar dados, possui autenticação segu
 
 ---
 
-###Estrutura do Projeto
+### Estrutura do Projeto
 
-`main.py` – Arquivo principal que inicia o sistema.
-`usuario.json` – Dados dos usuários cadastrados.
-`cursos.json` – Dados dos cursos disponíveis.
-`avaliacoes.json` – Registro das avaliações feitas.
-`acessos.json` – Dados sobre acessos e tempo de uso.
-`backups/` – Pasta para backups automáticos dos arquivos JSON.
-`log_usuario.log` – Registro das operações importantes do sistema.
+- `main.py` – Arquivo principal que inicia o sistema.
+- `usuario.json` – Dados dos usuários cadastrados.
+- `cursos.json` – Dados dos cursos disponíveis.
+- `avaliacoes.json` – Registro das avaliações feitas.
+- `acessos.json` – Dados sobre acessos e tempo de uso.
+- `backups/` – Pasta para backups automáticos dos arquivos JSON.
+- `log_usuario.log` – Registro das operações importantes do sistema.
