@@ -1,3 +1,4 @@
+from utils.estatisticas import gerar_estatisticas_usuarios, gerar_estatisticas_acessos, gerar_estatisticas_avaliacoes
 import json
 import hashlib
 import os
@@ -303,36 +304,24 @@ def excluir_curso():
 
 
 def mostrar_estatisticas():
-    """
-    Exibe estatísticas gerais da plataforma para o admin,
-    incluindo quantidade de usuários, cursos e acessos,
-    além da distribuição por gênero.
-    """
-    usuarios = carregar_dados(USUARIO_ARQUIVO)
-    cursos = carregar_dados(CURSO_ARQUIVO)
-    acessos = carregar_dados(ACESSO_ARQUIVO)
-    avaliacoes = carregar_dados(AVALIACOES_ARQUIVO)
 
-    total_usuarios = len(usuarios)
-    total_cursos = len(cursos)
-    total_acessos = len(acessos)
-    total_avaliacoes = len(avaliacoes)
+    print("\n=== Estatísticas do Sistema ===")
+    print("[1] Estatísticas de Usuários")
+    print("[2] Estatísticas de Acessos")
+    print("[3] Estatísticas de Avaliações")
+    print("[4] Voltar")
+    opcao = input("Escolha uma opção: ")
 
-    # Contagem por gênero, evitando expor detalhes pessoais além do necessário
-    genero_contagem = {}
-    for u in usuarios:
-        genero = u.get("genero", "não informado").lower()
-        genero_contagem[genero] = genero_contagem.get(genero, 0) + 1
-
-    print("\n=== Estatísticas Gerais ===")
-    print(f"Total de usuários cadastrados: {total_usuarios}")
-    print(f"Total de cursos cadastrados: {total_cursos}")
-    print(f"Total de acessos realizados: {total_acessos}")
-    print(f"Total de avaliações feitas: {total_avaliacoes}")
-    print("\nDistribuição de usuários por gênero:")
-    for genero, contagem in genero_contagem.items():
-        print(f"- {genero.capitalize()}: {contagem}")
-    print()
+    if opcao == "1":
+        gerar_estatisticas_usuarios()
+    elif opcao == "2":
+        gerar_estatisticas_acessos()
+    elif opcao == "3":
+        gerar_estatisticas_avaliacoes()
+    elif opcao == "4":
+        return
+    else:
+        print("Opção inválida!")
 
 
 def menu_admin():

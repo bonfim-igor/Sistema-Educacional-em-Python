@@ -1,14 +1,9 @@
 [
     {
-        "usuario": "IgorB",
-        "senha": "$2b$12$s.CnUJ.SD4JK8ZYEzL8aTu/elZLrBzLKho6JIXEByAxZrt1rxEPkK",
+        "usuario": "teste1",
+        "senha": "$2b$12$SDH6TFBeeP.N8qSF.7vA1O/oFTMcwQVFgIIViszPoQhuq2yJk9p9a",
         "tipo": "usuario",
-        "genero": "masculino"
-    },
-    {
-        "usuario": "teste2",
-        "senha": "$2b$12$/xBD.WQYLQgngudbNSCZyODMFq2vjSz3P6QfQS7TH36/ytCVw/fL6",
-        "tipo": "usuario",
-        "genero": "feminino"
+        "genero": "masculino",
+        "idade": 18
     }
 ]

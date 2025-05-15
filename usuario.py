@@ -1,4 +1,5 @@
 from datetime import datetime
+import time
 import shutil
 import json
 import os
@@ -117,11 +118,21 @@ def cadastrar_usuario():
         print("Gênero inválido.\n")
         return
 
+    try:
+        idade = int(input("Informe sua idade: ").strip())
+        if idade <= 0:
+            print("Idade inválida. A idade deve ser um número positivo.\n")
+            return
+    except ValueError:
+        print("Idade inválida. Por favor, insira um número inteiro.\n")
+        return
+
     novo = {
         "usuario": usuario,
         "senha": hash_senha(senha),
         "tipo": "usuario",
-        "genero": genero
+        "genero": genero,
+        "idade": idade
     }
 
     usuarios.append(novo)
@@ -151,9 +162,6 @@ def autenticar_usuario():
 
 
 def ver_cursos(usuario):
-    """
-    Exibe cursos por nível e registra o acesso do usuário.
-    """
     cursos = carregar_dados(CURSO_ARQUIVO)
     if not cursos:
         print("Nenhum curso disponível.\n")
@@ -200,63 +208,129 @@ def ver_cursos(usuario):
             curso_selecionado = cursos_nivel[int(escolha) - 1]
             print(f"\nConteúdo do curso '{curso_selecionado['nome']}':")
             print(curso_selecionado['conteudo'])
+
+            # Início do tempo de acesso
+            inicio_tempo = time.time()
+
             input("\nPressione Enter para voltar ao menu de cursos.")
 
-    acessos = carregar_dados(ACESSO_ARQUIVO)
-    acessos.append({"usuario": usuario["usuario"], "curso_count": len(cursos), "timestamp": datetime.now().isoformat()})
-    salvar_dados(ACESSO_ARQUIVO, acessos)
+            # Fim do tempo de acesso
+            fim_tempo = time.time()
+            tempo_acesso = round(fim_tempo - inicio_tempo, 2)  # tempo em segundos
+
+            # Carregar acessos
+            acessos = carregar_dados(ACESSO_ARQUIVO)
+
+            # Procurar se já existe registro para usuário e curso
+            acesso_existente = next(
+                (a for a in acessos if a["usuario"] == usuario["usuario"] and a["curso"] == curso_selecionado['nome']),
+                None
+            )
+
+            if acesso_existente:
+                # Atualiza quantidade e tempo total
+                acesso_existente["quantidade"] += 1
+                acesso_existente["tempo"] += tempo_acesso
+                acesso_existente["ultimo_acesso"] = datetime.now().isoformat()
+            else:
+                # Cria novo registro
+                novo_acesso = {
+                    "usuario": usuario["usuario"],
+                    "curso": curso_selecionado['nome'],
+                    "nivel": curso_selecionado['nivel'],
+                    "quantidade": 1,
+                    "tempo": tempo_acesso,
+                    "primeiro_acesso": datetime.now().isoformat(),
+                    "ultimo_acesso": datetime.now().isoformat()
+                }
+                acessos.append(novo_acesso)
+
+            # Salva os acessos atualizados
+            salvar_dados(ACESSO_ARQUIVO, acessos)
+
+            print(f"Acesso registrado: {curso_selecionado['nome']}, duração {tempo_acesso} segundos.\n")
+
 
 
 def avaliar_curso(usuario):
     """
-    Permite o usuário avaliar um curso e registra a avaliação.
+    Permite o usuário avaliar um curso e registra a avaliação,
+    separando os cursos por nível (iniciante, intermediário, avançado).
     """
     cursos = carregar_dados(CURSO_ARQUIVO)
     if not cursos:
         print("Nenhum curso disponível para avaliação.\n")
         return
 
-    print("\nCursos disponíveis para avaliação:")
-    for i, curso in enumerate(cursos):
-        print(f"[{i+1}] {curso['nome']}")
+    niveis = ["iniciante", "intermediário", "avançado"]
 
-    try:
-        escolha = int(input("Escolha o número do curso que deseja avaliar: "))
-        if not (1 <= escolha <= len(cursos)):
-            print("Curso inválido.\n")
+    while True:
+        print("\n=== Níveis Disponíveis para Avaliação ===")
+        for i, nivel in enumerate(niveis, 1):
+            print(f"[{i}] {nivel.capitalize()}")
+        print(f"[{len(niveis)+1}] Voltar")
+
+        escolha_nivel = input("Escolha o nível do curso para avaliar: ").strip()
+
+        if escolha_nivel == str(len(niveis)+1):
+            # Voltar / sair da função
             return
-    except ValueError:
-        print("Entrada inválida.\n")
-        return
 
-    curso_escolhido = cursos[escolha - 1]
-    nome_curso = curso_escolhido["nome"]
-    nivel_curso = curso_escolhido.get("nivel", "não especificado")
+        if escolha_nivel not in [str(i) for i in range(1, len(niveis)+1)]:
+            print("Opção inválida. Tente novamente.\n")
+            continue
 
-    avaliacoes = carregar_dados(AVALIACOES_ARQUIVO)
-    if any(av["usuario"] == usuario["usuario"] and av["curso"] == nome_curso for av in avaliacoes):
-        print("Você já avaliou este curso.\n")
-        return
+        nivel_escolhido = niveis[int(escolha_nivel) - 1]
+        cursos_nivel = [c for c in cursos if c.get("nivel") == nivel_escolhido]
 
-    try:
-        nota = int(input("Avalie de 1 a 5: "))
-        if not (1 <= nota <= 5):
-            print("Nota fora do intervalo.\n")
+        if not cursos_nivel:
+            print(f"Não há cursos cadastrados para o nível {nivel_escolhido}.\n")
+            continue
+
+        print(f"\nCursos disponíveis para avaliação no nível {nivel_escolhido.capitalize()}:")
+        for i, curso in enumerate(cursos_nivel, 1):
+            print(f"[{i}] {curso['nome']}")
+        print(f"[{len(cursos_nivel)+1}] Voltar ao menu de níveis")
+
+        escolha_curso = input("Escolha o número do curso que deseja avaliar: ").strip()
+
+        if escolha_curso == str(len(cursos_nivel)+1):
+            # Voltar para o menu de níveis
+            continue
+
+        if not escolha_curso.isdigit() or not (1 <= int(escolha_curso) <= len(cursos_nivel)):
+            print("Opção inválida. Tente novamente.\n")
+            continue
+
+        curso_escolhido = cursos_nivel[int(escolha_curso) - 1]
+        nome_curso = curso_escolhido["nome"]
+        nivel_curso = curso_escolhido.get("nivel", "não especificado")
+
+        avaliacoes = carregar_dados(AVALIACOES_ARQUIVO)
+        if any(av["usuario"] == usuario["usuario"] and av["curso"] == nome_curso for av in avaliacoes):
+            print("Você já avaliou este curso.\n")
             return
-    except ValueError:
-        print("Nota inválida.\n")
+
+        try:
+            nota = int(input("Avalie de 1 a 5: "))
+            if not (1 <= nota <= 5):
+                print("Nota fora do intervalo.\n")
+                return
+        except ValueError:
+            print("Nota inválida.\n")
+            return
+
+        avaliacoes.append({
+            "usuario": usuario["usuario"],
+            "curso": nome_curso,
+            "nivel": nivel_curso,
+            "nota": nota,
+            "timestamp": datetime.now().isoformat()
+        })
+
+        salvar_dados(AVALIACOES_ARQUIVO, avaliacoes)
+        print("Avaliação registrada com sucesso.\n")
         return
-
-    avaliacoes.append({
-        "usuario": usuario["usuario"],
-        "curso": nome_curso,
-        "nivel": nivel_curso,
-        "nota": nota,
-        "timestamp": datetime.now().isoformat()
-    })
-
-    salvar_dados(AVALIACOES_ARQUIVO, avaliacoes)
-    print("Avaliação registrada com sucesso.\n")
 
 
 def deletar_usuario(usuario):
@@ -311,7 +385,7 @@ def menu_usuario():
         print("=== MENU INICIAL ===")
         print("[1] Cadastrar")
         print("[2] Login")
-        print("[3] Sair")
+        print("[3] Voltar")
         opcao = input("Escolha entre (1-3): ").strip()
 
         if opcao == "1":

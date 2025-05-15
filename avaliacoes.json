@@ -5,5 +5,12 @@
         "nivel": "iniciante",
         "nota": 5,
         "timestamp": "2025-05-15T01:27:39.585607"
+    },
+    {
+        "usuario": "teste2",
+        "curso": "Pensamento L\u00f3gico Computacional Iniciante",
+        "nivel": "iniciante",
+        "nota": 3,
+        "timestamp": "2025-05-15T02:32:46.548165"
     }
 ]
