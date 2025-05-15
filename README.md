@@ -8,6 +8,7 @@ Este projeto é um sistema educacional simples em Python dividido em arquivos py
 
 - Python 3.6 ou superior
 - Biblioteca `bcrypt`
+- Biblioteca `matplotlib`
 
 ---
 
