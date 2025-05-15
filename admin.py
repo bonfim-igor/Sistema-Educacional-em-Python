@@ -28,7 +28,7 @@ logger_admin.addHandler(file_handler_admin)
 # Função que carrega dados de um arquivo JSON. Caso o arquivo não exista ou tenha erro no formato, retorna uma lista vazia
 def carregar_dados(arquivo):
     if os.path.exists(arquivo):
-        with open(arquivo, "r") as f:
+        with open(arquivo, "r", encoding="utf-8") as f:
             try:
                 return json.load(f)
             except json.JSONDecodeError:
@@ -38,7 +38,7 @@ def carregar_dados(arquivo):
 
 # Função que salva dados em um arquivo JSON, substituindo o conteúdo anterior
 def salvar_dados(arquivo, dados):
-    with open(arquivo, "w") as f:
+    with open(arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4)
 
 
@@ -86,10 +86,10 @@ def cadastrar_curso():
         print("Nível inválido. Curso não cadastrado.")
         return
 
-    # Verifica se já existem 5 cursos cadastrados para o nível escolhido
+    # Verifica se já existem 7 cursos cadastrados para o nível escolhido
     cursos_nivel = [c for c in cursos if c["nivel"] == nivel]
-    if len(cursos_nivel) >= 5:
-        print(f"Limite de 5 cursos para o nível '{nivel}' já atingido.")
+    if len(cursos_nivel) >= 7:
+        print(f"Limite de 7 cursos para o nível '{nivel}' já atingido.")
         return
 
     # Solicita ao usuário o nome do novo curso e remove espaços extras

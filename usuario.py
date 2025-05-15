@@ -30,7 +30,7 @@ def hash_senha(senha):
 # Carrega os dados de um arquivo JSON, retornando uma lista vazia se o arquivo não existir
 def carregar_dados(arquivo):
     if os.path.exists(arquivo):
-        with open(arquivo, "r") as f:
+        with open(arquivo, "r", encoding="utf-8") as f:
             try:
                 return json.load(f)
             except json.JSONDecodeError:
@@ -40,7 +40,7 @@ def carregar_dados(arquivo):
 
 # Salva os dados no arquivo JSON, formatando com indentação
 def salvar_dados(arquivo, dados):
-    with open(arquivo, "w") as f:
+    with open(arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4)
 
 
