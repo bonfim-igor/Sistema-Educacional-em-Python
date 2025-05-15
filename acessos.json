@@ -1,42 +1,12 @@
 [
     {
-        "usuario": "Igor",
-        "curso_count": 6
+        "usuario": "IgorB",
+        "curso_count": 18,
+        "timestamp": "2025-05-15T01:27:19.122651"
     },
     {
-        "usuario": "Igor",
-        "curso_count": 6
-    },
-    {
-        "usuario": "Igor",
-        "curso_count": 6
-    },
-    {
-        "usuario": "Igor",
-        "curso_count": 6
-    },
-    {
-        "usuario": "Igor",
-        "curso_count": 6
-    },
-    {
-        "usuario": "Igor",
-        "curso_count": 6
-    },
-    {
-        "usuario": "Igor",
-        "curso_count": 6
-    },
-    {
-        "usuario": "Igor",
-        "curso_count": 6
-    },
-    {
-        "usuario": "Kaua",
-        "curso_count": 6
-    },
-    {
-        "usuario": "Vitor",
-        "curso_count": 6
+        "usuario": "IgorB",
+        "curso_count": 18,
+        "timestamp": "2025-05-15T01:34:22.688713"
     }
 ]

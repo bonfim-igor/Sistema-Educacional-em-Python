@@ -1,20 +1,14 @@
 [
     {
-        "usuario": "Igor",
-        "senha": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "usuario": "IgorB",
+        "senha": "$2b$12$s.CnUJ.SD4JK8ZYEzL8aTu/elZLrBzLKho6JIXEByAxZrt1rxEPkK",
         "tipo": "usuario",
         "genero": "masculino"
     },
     {
-        "usuario": "Kaua",
-        "senha": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+        "usuario": "teste2",
+        "senha": "$2b$12$/xBD.WQYLQgngudbNSCZyODMFq2vjSz3P6QfQS7TH36/ytCVw/fL6",
         "tipo": "usuario",
-        "genero": "masculino"
-    },
-    {
-        "usuario": "Vitor",
-        "senha": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-        "tipo": "usuario",
-        "genero": "masculino"
+        "genero": "feminino"
     }
 ]

@@ -1,41 +1,23 @@
-2025-05-13 23:39:45,504 - INFO - Admin 'admin' logado.
-2025-05-13 23:40:10,916 - INFO - Curso cadastrado: Introduï¿½ï¿½o ï¿½ Programaï¿½ï¿½o com Python (iniciante)
-2025-05-13 23:41:22,458 - INFO - Admin 'admin' logado.
-2025-05-13 23:44:43,625 - INFO - Curso cadastrado: Introduï¿½ï¿½o ï¿½ Programaï¿½ï¿½o com Python (iniciante)
-2025-05-13 23:46:47,229 - INFO - Admin 'admin' logado.
-2025-05-13 23:47:09,273 - INFO - Admin 'admin' logado.
-2025-05-13 23:50:23,433 - INFO - Curso cadastrado: Introduï¿½ï¿½o ï¿½ Programaï¿½ï¿½o com Python (iniciante)
-2025-05-13 23:59:13,477 - INFO - Admin 'admin' logado.
-2025-05-14 00:00:42,570 - INFO - Curso cadastrado: Introduï¿½ï¿½o ï¿½ Programaï¿½ï¿½o com Python (iniciante)
-2025-05-14 00:02:28,742 - INFO - Curso cadastrado: Fundamentos de Redes de Computadores (iniciante)
-2025-05-14 00:03:25,784 - INFO - Curso cadastrado: Desenvolvimento Web com HTML, CSS e JavaScript (intermediï¿½rio)
-2025-05-14 00:04:03,336 - INFO - Curso cadastrado: Introduï¿½ï¿½o ï¿½ Inteligï¿½ncia Artificial (intermediï¿½rio)
-2025-05-14 00:04:36,199 - INFO - Curso cadastrado: Arquitetura de Computadores (avanï¿½ado)
-2025-05-14 00:05:13,079 - INFO - Curso cadastrado: Seguranï¿½a Cibernï¿½tica Avanï¿½ada (avanï¿½ado)
-2025-05-14 00:07:15,441 - INFO - Admin 'admin' logado.
-2025-05-14 00:22:54,865 - INFO - Admin 'admin' logado.
-2025-05-14 00:23:17,666 - INFO - Admin visualizou estatísticas.
-2025-05-14 00:27:41,878 - INFO - Admin 'admin' logado.
-2025-05-14 00:27:49,199 - INFO - Admin visualizou estatísticas.
-2025-05-14 00:30:10,229 - INFO - Admin 'admin' logado.
-2025-05-14 00:30:12,864 - INFO - Admin visualizou estatísticas.
 2025-05-15 00:15:10,005 - INFO - Admin 'admin' logado.
-2025-05-15 00:16:05,638 - INFO - Curso cadastrado: Pensamento Lógico Computacional Iniciante (iniciante)
-2025-05-15 00:17:44,197 - INFO - Curso cadastrado: Pensamento Lógico Computacional Intermediário (intermediário)
-2025-05-15 00:18:11,781 - INFO - Curso cadastrado: Pensamento Lógico Computacional Avançado (avançado)
+2025-05-15 00:16:05,638 - INFO - Curso cadastrado: Pensamento Lï¿½gico Computacional Iniciante (iniciante)
+2025-05-15 00:17:44,197 - INFO - Curso cadastrado: Pensamento Lï¿½gico Computacional Intermediï¿½rio (intermediï¿½rio)
+2025-05-15 00:18:11,781 - INFO - Curso cadastrado: Pensamento Lï¿½gico Computacional Avanï¿½ado (avanï¿½ado)
 2025-05-15 00:20:32,367 - INFO - Curso cadastrado: Infraestrutura Computacional Iniciante (iniciante)
-2025-05-15 00:20:59,455 - INFO - Curso cadastrado: Infraestrutura Computacional Intermediário (intermediário)
-2025-05-15 00:21:28,222 - INFO - Curso cadastrado: Infraestrutura Computacional Avançado (avançado)
-2025-05-15 00:22:43,663 - INFO - Curso cadastrado: Cibersegurança Iniciante (iniciante)
-2025-05-15 00:23:07,158 - INFO - Curso cadastrado: Cibersegurança Intermediário (intermediário)
-2025-05-15 00:23:47,118 - INFO - Curso cadastrado: Cibersegurança Avançado (avançado)
-2025-05-15 00:27:59,021 - INFO - Curso cadastrado: Tecnologia da Informação Iniciante (iniciante)
+2025-05-15 00:20:59,455 - INFO - Curso cadastrado: Infraestrutura Computacional Intermediï¿½rio (intermediï¿½rio)
+2025-05-15 00:21:28,222 - INFO - Curso cadastrado: Infraestrutura Computacional Avanï¿½ado (avanï¿½ado)
+2025-05-15 00:22:43,663 - INFO - Curso cadastrado: Ciberseguranï¿½a Iniciante (iniciante)
+2025-05-15 00:23:07,158 - INFO - Curso cadastrado: Ciberseguranï¿½a Intermediï¿½rio (intermediï¿½rio)
+2025-05-15 00:23:47,118 - INFO - Curso cadastrado: Ciberseguranï¿½a Avanï¿½ado (avanï¿½ado)
+2025-05-15 00:27:59,021 - INFO - Curso cadastrado: Tecnologia da Informaï¿½ï¿½o Iniciante (iniciante)
 2025-05-15 00:29:13,133 - INFO - Admin 'admin' logado.
-2025-05-15 00:30:00,276 - INFO - Curso cadastrado: Tecnologia da Informação Intermediário (intermediário)
-2025-05-15 00:30:28,606 - INFO - Curso cadastrado: Tecnologia da Informação Avançado (avançado)
-2025-05-15 00:31:38,210 - INFO - Curso cadastrado: Programação Básica Iniciante (iniciante)
-2025-05-15 00:32:22,661 - INFO - Curso cadastrado: Programação Básica Intermediário (intermediário)
-2025-05-15 00:33:01,596 - INFO - Curso cadastrado: Programação Básica Avançado (avançado)
-2025-05-15 00:35:16,347 - INFO - Curso cadastrado: Segurança Digital e LGPD Iniciante (iniciante)
-2025-05-15 00:35:50,548 - INFO - Curso cadastrado: Segurança Digital e LGPD Intermediário (intermediário)
-2025-05-15 00:36:14,827 - INFO - Curso cadastrado: Segurança Digital e LGPD Avançado (avançado)
+2025-05-15 00:30:00,276 - INFO - Curso cadastrado: Tecnologia da Informaï¿½ï¿½o Intermediï¿½rio (intermediï¿½rio)
+2025-05-15 00:30:28,606 - INFO - Curso cadastrado: Tecnologia da Informaï¿½ï¿½o Avanï¿½ado (avanï¿½ado)
+2025-05-15 00:31:38,210 - INFO - Curso cadastrado: Programaï¿½ï¿½o Bï¿½sica Iniciante (iniciante)
+2025-05-15 00:32:22,661 - INFO - Curso cadastrado: Programaï¿½ï¿½o Bï¿½sica Intermediï¿½rio (intermediï¿½rio)
+2025-05-15 00:33:01,596 - INFO - Curso cadastrado: Programaï¿½ï¿½o Bï¿½sica Avanï¿½ado (avanï¿½ado)
+2025-05-15 00:35:16,347 - INFO - Curso cadastrado: Seguranï¿½a Digital e LGPD Iniciante (iniciante)
+2025-05-15 00:35:50,548 - INFO - Curso cadastrado: Seguranï¿½a Digital e LGPD Intermediï¿½rio (intermediï¿½rio)
+2025-05-15 00:36:14,827 - INFO - Curso cadastrado: Seguranï¿½a Digital e LGPD Avanï¿½ado (avanï¿½ado)
+2025-05-15 01:24:54,682 - INFO - Admin 'admin' logado.
+2025-05-15 01:26:09,331 - INFO - Admin realizou logout.
+2025-05-15 01:34:40,831 - INFO - Admin 'admin' logado.
