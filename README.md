@@ -15,6 +15,13 @@ O sistema utiliza arquivos JSON para armazenar dados, possui autenticação segu
 
 ---
 
+### Credenciais de Admin
+
+- **Usuário:** admin
+- **Senha:** admin123
+
+---
+
 ### Funcionalidades do Usuário
 
 - **Cadastro de usuário:** Criação de conta com validação de dados (usuário, senha, idade e gênero).
