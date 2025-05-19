@@ -6,16 +6,16 @@ import os
 import logging
 import bcrypt
 
-USUARIO_ARQUIVO = "usuario.json"
-CURSO_ARQUIVO = "cursos.json"
-ACESSO_ARQUIVO = "acessos.json"
-AVALIACOES_ARQUIVO = "avaliacoes.json"
-BACKUP_PASTA = "backups"
+USUARIO_ARQUIVO = "data/usuario.json"
+CURSO_ARQUIVO = "data/cursos.json"
+ACESSO_ARQUIVO = "data/acessos.json"
+AVALIACOES_ARQUIVO = "data/avaliacoes.json"
+BACKUP_PASTA = "data/backups"
 
-LOG_USUARIO = "log_usuario.log"
+LOG_USUARIO = "logs/log_usuario.log"
 
 # Configuração do logger
-logger_usuario = logging.getLogger('usuario')
+logger_usuario = logging.getLogger('logs/usuario')
 logger_usuario.setLevel(logging.INFO)
 file_handler_usuario = logging.FileHandler(LOG_USUARIO)
 file_handler_usuario.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
@@ -23,18 +23,12 @@ logger_usuario.addHandler(file_handler_usuario)
 
 
 def hash_senha(senha: str) -> str:
-    """
-    Gera o hash bcrypt da senha para armazenamento seguro.
-    """
     salt = bcrypt.gensalt()
     hashed = bcrypt.hashpw(senha.encode('utf-8'), salt)
     return hashed.decode('utf-8')
 
 
 def verificar_senha(senha: str, hashed: str) -> bool:
-    """
-    Verifica se a senha informada confere com o hash armazenado.
-    """
     try:
         return bcrypt.checkpw(senha.encode('utf-8'), hashed.encode('utf-8'))
     except ValueError:
@@ -42,9 +36,6 @@ def verificar_senha(senha: str, hashed: str) -> bool:
 
 
 def carregar_dados(arquivo: str):
-    """
-    Carrega dados de um arquivo JSON, retorna lista vazia se não existir ou inválido.
-    """
     if os.path.exists(arquivo):
         try:
             with open(arquivo, "r", encoding="utf-8") as f:
@@ -56,25 +47,16 @@ def carregar_dados(arquivo: str):
 
 
 def salvar_dados(arquivo: str, dados):
-    """
-    Salva dados formatados em JSON no arquivo especificado.
-    """
     with open(arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4)
 
 
 def criar_backup():
-    """
-    Cria pasta de backups se não existir.
-    """
     if not os.path.exists(BACKUP_PASTA):
         os.makedirs(BACKUP_PASTA)
 
 
 def backup_arquivo(origem: str):
-    """
-    Cria backup do arquivo JSON na pasta de backups com timestamp.
-    """
     criar_backup()
     data_hora = datetime.now().strftime("%Y%m%d_%H%M%S")
     nome_backup = os.path.join(BACKUP_PASTA, f"backup_{os.path.basename(origem).replace('.json','')}_{data_hora}.json")
@@ -88,9 +70,6 @@ def backup_arquivo(origem: str):
 
 
 def cadastrar_usuario():
-    """
-    Realiza o cadastro de um novo usuário com validações e confirmação de senha.
-    """
     usuarios = carregar_dados(USUARIO_ARQUIVO)
 
     usuario = input("Informe o usuário (mínimo 3 caracteres, sem espaços): ").strip()
@@ -142,9 +121,6 @@ def cadastrar_usuario():
 
 
 def autenticar_usuario():
-    """
-    Autentica usuário comparando hash da senha e chama o menu do usuário autenticado.
-    """
     usuarios = carregar_dados(USUARIO_ARQUIVO)
 
     while True:
@@ -253,10 +229,6 @@ def ver_cursos(usuario):
 
 
 def avaliar_curso(usuario):
-    """
-    Permite o usuário avaliar um curso e registra a avaliação,
-    separando os cursos por nível (iniciante, intermediário, avançado).
-    """
     cursos = carregar_dados(CURSO_ARQUIVO)
     if not cursos:
         print("Nenhum curso disponível para avaliação.\n")
@@ -334,9 +306,6 @@ def avaliar_curso(usuario):
 
 
 def deletar_usuario(usuario):
-    """
-    Exclui a conta do usuário com confirmação e backup antes.
-    """
     confirm = input(f"Tem certeza que deseja excluir a conta '{usuario['usuario']}'? (s/n): ").strip().lower()
     if confirm != "s":
         print("Exclusão cancelada.\n")
@@ -352,9 +321,6 @@ def deletar_usuario(usuario):
 
 
 def menu_usuario_autenticado(usuario):
-    """
-    Menu principal para usuários autenticados.
-    """
     while True:
         print("=== MENU USUÁRIO ===")
         print("[1] Ver cursos")
@@ -378,9 +344,6 @@ def menu_usuario_autenticado(usuario):
 
 
 def menu_usuario():
-    """
-    Menu inicial para usuários não autenticados.
-    """
     while True:
         print("=== MENU INICIAL ===")
         print("[1] Cadastrar")

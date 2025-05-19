@@ -1,8 +1,8 @@
 import logging
-from usuario import menu_usuario
-from admin import menu_admin
+from user.usuario import menu_usuario
+from admins.admin import menu_admin
 
-LOG_APP = "log_app.log"
+LOG_APP = "logs/log_app.log"
 
 # Configuração básica de logging para auditoria da execução
 logger_app = logging.getLogger('app')

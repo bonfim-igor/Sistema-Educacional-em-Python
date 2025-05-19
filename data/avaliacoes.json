@@ -1,0 +1,16 @@
+[
+    {
+        "usuario": "teste1",
+        "curso": "Pensamento L\u00f3gico Computacional Iniciante",
+        "nivel": "iniciante",
+        "nota": 3,
+        "timestamp": "2025-05-15T02:32:46.548165"
+    },
+    {
+        "usuario": "teste1",
+        "curso": "Seguran\u00e7a Digital e LGPD Intermedi\u00e1rio",
+        "nivel": "intermedi\u00e1rio",
+        "nota": 5,
+        "timestamp": "2025-05-19T12:05:01.284649"
+    }
+]

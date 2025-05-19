@@ -5,18 +5,17 @@ import os
 import logging
 import getpass
 
-
-USUARIO_ARQUIVO = "usuario.json"
-CURSO_ARQUIVO = "cursos.json"
-ACESSO_ARQUIVO = "acessos.json"
-AVALIACOES_ARQUIVO = "avaliacoes.json"
-
+USUARIO_ARQUIVO = "data/usuario.json"
+CURSO_ARQUIVO = "data/cursos.json"
+ACESSO_ARQUIVO = "data/acessos.json"
+AVALIACOES_ARQUIVO = "data/avaliacoes.json"
+MAX_CONTEUDO_CURSO = 5000
 
 ADMIN_USUARIO = "admin"
 ADMIN_SENHA = "admin123"
 ADMIN_SENHA_HASH = hashlib.sha256(ADMIN_SENHA.encode()).hexdigest()
 
-LOG_ADMIN = "log_admin.log"
+LOG_ADMIN = "logs/log_admin.log"
 
 # Logger para admin: grava apenas eventos operacionais, sem dados pessoais sensíveis,
 # para estar em conformidade com LGPD (ex: não grava senhas, só ações do admin).
@@ -26,12 +25,7 @@ file_handler_admin = logging.FileHandler(LOG_ADMIN)
 file_handler_admin.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 logger_admin.addHandler(file_handler_admin)
 
-
 def carregar_dados(arquivo):
-    """
-    Carrega dados JSON de um arquivo.
-    Retorna lista vazia se arquivo não existir ou estiver corrompido.
-    """
     if os.path.exists(arquivo):
         with open(arquivo, "r", encoding="utf-8") as f:
             try:
@@ -40,18 +34,11 @@ def carregar_dados(arquivo):
                 return []
     return []
 
-
 def salvar_dados(arquivo, dados):
-    """Salva dados em formato JSON no arquivo indicado."""
     with open(arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4)
 
-
 def autenticar_admin():
-    """
-    Autentica o administrador solicitando usuário e senha, com limite de tentativas.
-    A senha é solicitada de forma oculta para segurança.
-    """
     tentativas = 0
     max_tentativas = 3
 
@@ -73,15 +60,7 @@ def autenticar_admin():
     print("Número máximo de tentativas excedido. Encerrando acesso.")
     return False
 
-
-MAX_CONTEUDO_CURSO = 5000  # Limite máximo de caracteres no conteúdo do curso
-
-
 def cadastrar_curso():
-    """
-    Permite o cadastro de um novo curso, respeitando limite de 7 cursos por nível.
-    Recebe nome, nível e conteúdo do curso. Conteúdo limitado em tamanho para evitar abuso.
-    """
     cursos = carregar_dados(CURSO_ARQUIVO)
 
     print("\nNíveis disponíveis:")
@@ -136,7 +115,6 @@ def cadastrar_curso():
 
 
 def ver_cursos():
-    """Exibe os cursos cadastrados, organizados por nível, e permite visualizar o conteúdo."""
     cursos = carregar_dados(CURSO_ARQUIVO)
 
     if not cursos:
@@ -189,10 +167,6 @@ def ver_cursos():
 
 
 def editar_curso():
-    """
-    Permite editar dados de um curso existente: nome, conteúdo e nível.
-    Mantém limites e evita duplicidade de nomes.
-    """
     cursos = carregar_dados(CURSO_ARQUIVO)
 
     if not cursos:
@@ -266,9 +240,6 @@ def editar_curso():
 
 
 def excluir_curso():
-    """
-    Permite excluir um curso cadastrado, com confirmação para evitar exclusão acidental.
-    """
     cursos = carregar_dados(CURSO_ARQUIVO)
 
     if not cursos:
@@ -325,7 +296,6 @@ def mostrar_estatisticas():
 
 
 def menu_admin():
-    """Menu principal do admin, com opções de gestão de cursos e visualização de estatísticas."""
     if not autenticar_admin():
         return
 
