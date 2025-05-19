@@ -12,28 +12,24 @@ ACESSO_ARQUIVO = "data/acessos.json"
 AVALIACOES_ARQUIVO = "data/avaliacoes.json"
 BACKUP_PASTA = "data/backups"
 
-LOG_USUARIO = "logs/log_usuario.log"
+LOG_USUARIO = "logs/logger_user.log"
 
-# Configuração do logger
-logger_usuario = logging.getLogger('logs/usuario')
+logger_usuario = logging.getLogger('lusuario')
 logger_usuario.setLevel(logging.INFO)
 file_handler_usuario = logging.FileHandler(LOG_USUARIO)
 file_handler_usuario.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 logger_usuario.addHandler(file_handler_usuario)
-
 
 def hash_senha(senha: str) -> str:
     salt = bcrypt.gensalt()
     hashed = bcrypt.hashpw(senha.encode('utf-8'), salt)
     return hashed.decode('utf-8')
 
-
 def verificar_senha(senha: str, hashed: str) -> bool:
     try:
         return bcrypt.checkpw(senha.encode('utf-8'), hashed.encode('utf-8'))
     except ValueError:
         return False
-
 
 def carregar_dados(arquivo: str):
     if os.path.exists(arquivo):
@@ -45,16 +41,13 @@ def carregar_dados(arquivo: str):
             return []
     return []
 
-
 def salvar_dados(arquivo: str, dados):
     with open(arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4)
 
-
 def criar_backup():
     if not os.path.exists(BACKUP_PASTA):
         os.makedirs(BACKUP_PASTA)
-
 
 def backup_arquivo(origem: str):
     criar_backup()
@@ -68,7 +61,6 @@ def backup_arquivo(origem: str):
         logger_usuario.error(f"Erro ao criar backup do arquivo {origem}: {e}")
         print(f"Erro ao criar backup: {e}")
 
-
 def cadastrar_usuario():
     usuarios = carregar_dados(USUARIO_ARQUIVO)
 
@@ -77,7 +69,6 @@ def cadastrar_usuario():
         print("Usuário inválido. Tente novamente.\n")
         return
 
-    # Verifica duplicidade
     if any(u["usuario"] == usuario for u in usuarios):
         print("Usuário já cadastrado.\n")
         return
@@ -119,7 +110,6 @@ def cadastrar_usuario():
     logger_usuario.info(f"Usuário '{usuario}' cadastrado.")
     print("Cadastro realizado com sucesso.\n")
 
-
 def autenticar_usuario():
     usuarios = carregar_dados(USUARIO_ARQUIVO)
 
@@ -135,7 +125,6 @@ def autenticar_usuario():
             return
         else:
             print("Credenciais inválidas.\n")
-
 
 def ver_cursos(usuario):
     cursos = carregar_dados(CURSO_ARQUIVO)
@@ -185,31 +174,25 @@ def ver_cursos(usuario):
             print(f"\nConteúdo do curso '{curso_selecionado['nome']}':")
             print(curso_selecionado['conteudo'])
 
-            # Início do tempo de acesso
             inicio_tempo = time.time()
 
             input("\nPressione Enter para voltar ao menu de cursos.")
 
-            # Fim do tempo de acesso
             fim_tempo = time.time()
-            tempo_acesso = round(fim_tempo - inicio_tempo, 2)  # tempo em segundos
+            tempo_acesso = round(fim_tempo - inicio_tempo, 2)
 
-            # Carregar acessos
             acessos = carregar_dados(ACESSO_ARQUIVO)
 
-            # Procurar se já existe registro para usuário e curso
             acesso_existente = next(
                 (a for a in acessos if a["usuario"] == usuario["usuario"] and a["curso"] == curso_selecionado['nome']),
                 None
             )
 
             if acesso_existente:
-                # Atualiza quantidade e tempo total
                 acesso_existente["quantidade"] += 1
                 acesso_existente["tempo"] += tempo_acesso
                 acesso_existente["ultimo_acesso"] = datetime.now().isoformat()
             else:
-                # Cria novo registro
                 novo_acesso = {
                     "usuario": usuario["usuario"],
                     "curso": curso_selecionado['nome'],
@@ -221,12 +204,9 @@ def ver_cursos(usuario):
                 }
                 acessos.append(novo_acesso)
 
-            # Salva os acessos atualizados
             salvar_dados(ACESSO_ARQUIVO, acessos)
 
             print(f"Acesso registrado: {curso_selecionado['nome']}, duração {tempo_acesso} segundos.\n")
-
-
 
 def avaliar_curso(usuario):
     cursos = carregar_dados(CURSO_ARQUIVO)
@@ -245,7 +225,6 @@ def avaliar_curso(usuario):
         escolha_nivel = input("Escolha o nível do curso para avaliar: ").strip()
 
         if escolha_nivel == str(len(niveis)+1):
-            # Voltar / sair da função
             return
 
         if escolha_nivel not in [str(i) for i in range(1, len(niveis)+1)]:
@@ -267,7 +246,6 @@ def avaliar_curso(usuario):
         escolha_curso = input("Escolha o número do curso que deseja avaliar: ").strip()
 
         if escolha_curso == str(len(cursos_nivel)+1):
-            # Voltar para o menu de níveis
             continue
 
         if not escolha_curso.isdigit() or not (1 <= int(escolha_curso) <= len(cursos_nivel)):
@@ -304,28 +282,65 @@ def avaliar_curso(usuario):
         print("Avaliação registrada com sucesso.\n")
         return
 
+def editar_dados(usuario):
+    nome_antigo = usuario["usuario"]
+    while True:
+        print("\n=== MENU DE DADOS PESSOAIS ===")
+        print("[1] Editar Nome")
+        print("[2] Editar Senha")
+        print("[3] Editar Idade")
+        print("[4] Editar Gênero")
+        print("[5] Excluir Conta")
+        print("[6] Voltar")
+        opcao = input("Escolha uma opção (1-6): ").strip()
+
+        if opcao == "1":
+            novo_nome = input("Digite o novo nome: ").strip()
+            usuario["usuario"] = novo_nome
+        elif opcao == "2":
+            nova_senha = input("Digite a nova senha: ").strip()
+            usuario["senha"] = hash_senha(nova_senha)
+        elif opcao == "3":
+            nova_idade = int(input("Digite a nova idade: ").strip())
+            usuario["idade"] = nova_idade
+        elif opcao == "4":
+            novo_genero = input("Digite o novo gênero (masculino/feminino): ").strip().lower()
+            usuario["genero"] = novo_genero
+        elif opcao == "5":
+            deletar_usuario(usuario)
+            break
+        elif opcao == "6":
+            break
+        else:
+            print("Opção inválida.")
+
+        usuarios = carregar_dados(USUARIO_ARQUIVO)
+        for i, u in enumerate(usuarios):
+            if u["usuario"] == nome_antigo:
+                usuarios[i] = usuario
+                salvar_dados(USUARIO_ARQUIVO, usuarios)
+                print("Dados atualizados com sucesso!")
+                break
 
 def deletar_usuario(usuario):
     confirm = input(f"Tem certeza que deseja excluir a conta '{usuario['usuario']}'? (s/n): ").strip().lower()
     if confirm != "s":
-        print("Exclusão cancelada.\n")
+        print("Exclusão cancelada.")
         return
 
     backup_arquivo(USUARIO_ARQUIVO)
-
     usuarios = carregar_dados(USUARIO_ARQUIVO)
     usuarios = [u for u in usuarios if u["usuario"] != usuario["usuario"]]
     salvar_dados(USUARIO_ARQUIVO, usuarios)
     logger_usuario.info(f"Usuário '{usuario['usuario']}' excluído.")
-    print("Conta excluída com sucesso.\n")
-
+    print("Conta excluída com sucesso.")
 
 def menu_usuario_autenticado(usuario):
     while True:
         print("=== MENU USUÁRIO ===")
         print("[1] Ver cursos")
         print("[2] Avaliar curso")
-        print("[3] Excluir minha conta")
+        print("[3] Editar Dados")
         print("[4] Logout")
         opcao = input("Escolha uma opção entre (1-4): ").strip()
 
@@ -334,14 +349,13 @@ def menu_usuario_autenticado(usuario):
         elif opcao == "2":
             avaliar_curso(usuario)
         elif opcao == "3":
-            deletar_usuario(usuario)
+            editar_dados(usuario)
             break
         elif opcao == "4":
             print("Logout realizado.\n")
             break
         else:
             print("Opção inválida.\n")
-
 
 def menu_usuario():
     while True:
@@ -360,7 +374,6 @@ def menu_usuario():
             break
         else:
             print("Opção inválida.\n")
-
 
 if __name__ == "__main__":
     menu_usuario()

@@ -15,10 +15,8 @@ ADMIN_USUARIO = "admin"
 ADMIN_SENHA = "admin123"
 ADMIN_SENHA_HASH = hashlib.sha256(ADMIN_SENHA.encode()).hexdigest()
 
-LOG_ADMIN = "logs/log_admin.log"
+LOG_ADMIN = "logs/logger_admin.log"
 
-# Logger para admin: grava apenas eventos operacionais, sem dados pessoais sensíveis,
-# para estar em conformidade com LGPD (ex: não grava senhas, só ações do admin).
 logger_admin = logging.getLogger('admin')
 logger_admin.setLevel(logging.INFO)
 file_handler_admin = logging.FileHandler(LOG_ADMIN)
@@ -113,7 +111,6 @@ def cadastrar_curso():
     logger_admin.info(f"Curso cadastrado: {nome} ({nivel})")
     print(f"Curso '{nome}' cadastrado com sucesso no nível {nivel}.\n")
 
-
 def ver_cursos():
     cursos = carregar_dados(CURSO_ARQUIVO)
 
@@ -165,7 +162,6 @@ def ver_cursos():
             print(curso_selecionado['conteudo'])
             input("\nPressione Enter para voltar ao menu de cursos.")
 
-
 def editar_curso():
     cursos = carregar_dados(CURSO_ARQUIVO)
 
@@ -195,7 +191,6 @@ def editar_curso():
 
     novo_nome = input(f"Novo nome (deixe vazio para manter '{curso['nome']}'): ").strip()
     if novo_nome:
-        # Verifica duplicidade
         if any(c["nome"].lower() == novo_nome.lower() and c != curso for c in cursos):
             print("Já existe um curso com esse nome. Edição cancelada.")
             return
@@ -238,7 +233,6 @@ def editar_curso():
     logger_admin.info(f"Curso editado: {curso['nome']} ({curso['nivel']})")
     print(f"Curso '{curso['nome']}' editado com sucesso.\n")
 
-
 def excluir_curso():
     cursos = carregar_dados(CURSO_ARQUIVO)
 
@@ -273,7 +267,6 @@ def excluir_curso():
     else:
         print("Exclusão cancelada.")
 
-
 def mostrar_estatisticas():
 
     print("\n=== Estatísticas do Sistema ===")
@@ -293,7 +286,6 @@ def mostrar_estatisticas():
         return
     else:
         print("Opção inválida!")
-
 
 def menu_admin():
     if not autenticar_admin():
@@ -327,7 +319,6 @@ def menu_admin():
                 break
         else:
             print("Opção inválida.\n")
-
 
 if __name__ == "__main__":
     menu_admin()

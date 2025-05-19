@@ -2,15 +2,12 @@ import json
 import statistics
 import matplotlib.pyplot as plt
 
-
 def carregar_dados(arquivo):
     with open(arquivo, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-
 def calcular_media(valores):
     return statistics.mean(valores) if valores else 0
-
 
 def calcular_moda(valores):
     try:
@@ -18,10 +15,8 @@ def calcular_moda(valores):
     except statistics.StatisticsError:
         return 'Sem moda'
 
-
 def calcular_mediana(valores):
     return statistics.median(valores) if valores else 0
-
 
 def gerar_grafico(valores, titulo, xlabel):
     plt.figure(figsize=(8, 5))
@@ -31,9 +26,8 @@ def gerar_grafico(valores, titulo, xlabel):
     plt.ylabel('Frequência')
     plt.show()
 
-
 def gerar_estatisticas_usuarios():
-    usuarios = carregar_dados('usuario.json')
+    usuarios = carregar_dados('data/usuario.json')
     idades = [user['idade'] for user in usuarios if 'idade' in user]
     generos = [user['genero'] for user in usuarios if 'genero' in user]
 
@@ -80,9 +74,8 @@ def gerar_estatisticas_usuarios():
         else:
             print("Opção inválida, tente novamente.")
 
-
 def gerar_estatisticas_acessos():
-    acessos = carregar_dados('acessos.json')
+    acessos = carregar_dados('data/acessos.json')
     num_acessos = [acesso['quantidade'] for acesso in acessos if 'quantidade' in acesso]
     tempos = [acesso['tempo'] for acesso in acessos if 'tempo' in acesso]
 
@@ -128,7 +121,7 @@ def gerar_estatisticas_acessos():
             print("Opção inválida, tente novamente.")
 
 def gerar_estatisticas_avaliacoes():
-    avaliacoes = carregar_dados('avaliacoes.json')
+    avaliacoes = carregar_dados('data/avaliacoes.json')
     if not avaliacoes:
         print("Não há avaliações para exibir estatísticas.")
         return
@@ -161,7 +154,6 @@ def gerar_estatisticas_avaliacoes():
         print(f"  Nota máxima: {maxima}")
         print(f"  Nota mínima: {minima}\n")
 
-    # Gerar gráfico de média das notas por curso
     plt.figure(figsize=(10,6))
     plt.bar(cursos, medias, color='lightblue', edgecolor='black')
     plt.title('Média das Notas por Curso')

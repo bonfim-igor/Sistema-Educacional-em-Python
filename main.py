@@ -2,9 +2,8 @@ import logging
 from user.usuario import menu_usuario
 from admins.admin import menu_admin
 
-LOG_APP = "logs/log_app.log"
+LOG_APP = "logs/logger_system.log"
 
-# Configuração básica de logging para auditoria da execução
 logger_app = logging.getLogger('app')
 logger_app.setLevel(logging.INFO)
 file_handler_app = logging.FileHandler(LOG_APP)
@@ -20,7 +19,6 @@ def main():
         print("[3] Sair")
         opcao = input("Escolha uma opção entre (1-3): ").strip()
 
-        # Validação simples da entrada para evitar inputs inválidos
         if opcao not in {"1", "2", "3"}:
             print("Opção inválida.\n")
             continue
