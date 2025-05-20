@@ -45,6 +45,15 @@ Este projeto é um sistema educacional desenvolvido em Python, que oferece uma p
 
 ---
 
+### 🚀 Como Executar o Projeto
+
+- Clone o repositório: `git clone https://github.com/bonfim-igor/Sistema-Educacional-em-Python.git`
+- Navegue até o diretório do projeto: `cd Sistema-Educacional-em-Python`
+- Instale as dependências necessárias: `pip install bcrypt matplotlib`
+- Execute o sistema: `python main.py`
+
+---
+
 ### Estrutura do Projeto
 
 - `main.py` – Arquivo principal para execução do sistema.
