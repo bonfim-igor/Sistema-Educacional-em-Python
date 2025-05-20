@@ -64,7 +64,10 @@ def backup_arquivo(origem: str):
 def cadastrar_usuario():
     usuarios = carregar_dados(USUARIO_ARQUIVO)
 
-    usuario = input("Informe o usuário (mínimo 3 caracteres, sem espaços): ").strip()
+    usuario = input("Informe o usuário (mínimo 3 caracteres, sem espaços (ou 'voltar' para sair): ").strip()
+    if usuario.lower() == "voltar":
+        print("Cadastro cancelado.\n")
+        return
     if len(usuario) < 3 or " " in usuario:
         print("Usuário inválido. Tente novamente.\n")
         return
@@ -73,23 +76,36 @@ def cadastrar_usuario():
         print("Usuário já cadastrado.\n")
         return
 
-    senha = input("Informe a senha (mínimo 6 caracteres): ").strip()
+    senha = input("Informe a senha (mínimo 6 caracteres (ou 'voltar' para sair): ").strip()
+    if senha.lower() == "voltar":
+        print("Cadastro cancelado.\n")
+        return
     if len(senha) < 6:
         print("Senha muito curta.\n")
         return
 
     confirma = input("Confirme a senha: ").strip()
+    if confirma.lower() == "voltar":
+        print("Cadastro cancelado.\n")
+        return
     if senha != confirma:
         print("Senhas não conferem.\n")
         return
 
-    genero = input("Gênero (masculino/feminino): ").strip().lower()
+    genero = input("Gênero (masculino/feminino (ou 'voltar' para sair): ").strip().lower()
+    if genero == "voltar":
+        print("Cadastro cancelado.\n")
+        return
     if genero not in ["masculino", "feminino"]:
         print("Gênero inválido.\n")
         return
 
+    idade_input = input("Informe sua idade (ou 'voltar' para sair): ").strip()
+    if idade_input.lower() == "voltar":
+        print("Cadastro cancelado.\n")
+        return
     try:
-        idade = int(input("Informe sua idade: ").strip())
+        idade = int(idade_input)
         if idade <= 0:
             print("Idade inválida. A idade deve ser um número positivo.\n")
             return

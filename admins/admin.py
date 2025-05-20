@@ -41,14 +41,23 @@ def autenticar_admin():
     max_tentativas = 3
 
     while tentativas < max_tentativas:
-        usuario = input("Informe o usuário: ")
-        senha = getpass.getpass("Informe a senha: ")  # senha oculta
+        print("\n=== Login de Administrador ===")
+        print("Digite 'voltar' a qualquer momento para retornar ao menu anterior.")
+
+        usuario = input("Informe o usuário: ").strip()
+        if usuario.lower() == "voltar":
+            print("Retornando ao menu anterior...\n")
+            return False  # ou use outro valor especial se quiser diferenciar
+
+        senha = getpass.getpass("Informe a senha: ").strip()
+        if senha.lower() == "voltar":
+            print("Retornando ao menu anterior...\n")
+            return False
 
         if usuario == ADMIN_USUARIO and hashlib.sha256(senha.encode()).hexdigest() == ADMIN_SENHA_HASH:
             print("Acesso concedido ao admin.\n")
             logger_admin.info(f"Admin '{usuario}' logado.")
             return True
-
         else:
             print("Credenciais incorretas.\n")
             logger_admin.warning("Tentativa de login admin inválida.")
