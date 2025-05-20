@@ -130,8 +130,14 @@ def autenticar_usuario():
     usuarios = carregar_dados(USUARIO_ARQUIVO)
 
     while True:
-        usuario = input("Informe o usuário: ").strip()
-        senha = input("Informe a senha: ").strip()
+        usuario = input("Informe o usuário (ou 'voltar' para sair): ").strip()
+        if usuario.lower() == "voltar":
+            print("Login cancelado.\n")
+            return
+        senha = input("Informe a senha (ou 'voltar' para sair): ").strip()
+        if senha.lower() == "voltar":
+            print("Login cancelado.\n")
+            return
 
         user = next((u for u in usuarios if u["usuario"] == usuario), None)
         if user and verificar_senha(senha, user["senha"]):
