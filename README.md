@@ -47,10 +47,10 @@ Este projeto é um sistema educacional desenvolvido em Python, que oferece uma p
 
 ### Estrutura do Projeto
 
-- `main.py` – Arquivo principal que inicia o sistema.
-- `usuario.json` – Dados dos usuários cadastrados.
-- `cursos.json` – Dados dos cursos disponíveis.
-- `avaliacoes.json` – Registro das avaliações feitas.
-- `acessos.json` – Dados sobre acessos e tempo de uso.
-- `backups/` – Pasta para backups automáticos dos arquivos JSON.
-- `log_usuario.log` – Registro das operações importantes do sistema.
+- `main.py` – Arquivo principal para execução do sistema.
+- `admins/` – Funções e dados relacionados aos administradores.
+- `user/` – Funções e dados relacionados aos usuários.
+- `data/` – Armazenamento de dados em arquivos JSON.
+- `utils/` – Funções utilitárias (ex: estatisticas).
+- `logs/` – Registros de atividades do sistema.
+- `README.md` – Documentação do projeto.
