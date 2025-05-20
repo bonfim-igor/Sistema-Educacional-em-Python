@@ -4,6 +4,7 @@ import shutil
 import json
 import os
 import logging
+import getpass
 import bcrypt
 
 USUARIO_ARQUIVO = "data/usuario.json"
@@ -64,6 +65,11 @@ def backup_arquivo(origem: str):
 def cadastrar_usuario():
     usuarios = carregar_dados(USUARIO_ARQUIVO)
 
+    print("===================================================")
+    print(" ")
+    print("============== CADASTRO DE USUÁRIO ================")
+    print(" ")
+    print("===================================================")
     usuario = input("Informe o usuário (mínimo 3 caracteres, sem espaços (ou 'voltar' para sair): ").strip()
     if usuario.lower() == "voltar":
         print("Cadastro cancelado.\n")
@@ -76,7 +82,7 @@ def cadastrar_usuario():
         print("Usuário já cadastrado.\n")
         return
 
-    senha = input("Informe a senha (mínimo 6 caracteres (ou 'voltar' para sair): ").strip()
+    senha = getpass.getpass("Informe a senha (mínimo 6 caracteres (ou 'voltar' para sair): ").strip()
     if senha.lower() == "voltar":
         print("Cadastro cancelado.\n")
         return
@@ -84,7 +90,7 @@ def cadastrar_usuario():
         print("Senha muito curta.\n")
         return
 
-    confirma = input("Confirme a senha: ").strip()
+    confirma = getpass.getpass("Confirme a senha: ").strip()
     if confirma.lower() == "voltar":
         print("Cadastro cancelado.\n")
         return
@@ -130,11 +136,16 @@ def autenticar_usuario():
     usuarios = carregar_dados(USUARIO_ARQUIVO)
 
     while True:
+        print("===================================================")
+        print(" ")
+        print("================ LOGIN DE USUÁRIO =================")
+        print(" ")
+        print("===================================================")
         usuario = input("Informe o usuário (ou 'voltar' para sair): ").strip()
         if usuario.lower() == "voltar":
             print("Login cancelado.\n")
             return
-        senha = input("Informe a senha (ou 'voltar' para sair): ").strip()
+        senha = getpass.getpass("Informe a senha (ou 'voltar' para sair): ").strip()
         if senha.lower() == "voltar":
             print("Login cancelado.\n")
             return
@@ -157,11 +168,17 @@ def ver_cursos(usuario):
     niveis = ["iniciante", "intermediário", "avançado"]
 
     while True:
-        print("\n=== MENU DE CURSOS ===")
+        print("===================================================")
+        print(" ")
+        print("============= MENU DE NÍVEIS DE CURSO =============")
+        print(" ")
+        print("===================================================")
         print("[1] Cursos Iniciante")
         print("[2] Cursos Intermediário")
         print("[3] Cursos Avançado")
         print("[4] Voltar ao menu principal")
+        print(" ")
+        print("===================================================")
         opcao = input("Escolha uma opção entre (1-4): ").strip()
 
         if opcao == "4":
@@ -178,7 +195,11 @@ def ver_cursos(usuario):
             continue
 
         while True:
-            print(f"\n=== CURSOS NÍVEL {nivel.upper()} ===")
+            print("===================================================")
+            print(" ")
+            print(f"========= CURSOS NÍVEL {nivel.upper()} =========")
+            print(" ")
+            print("===================================================")
             for idx, curso in enumerate(cursos_nivel, 1):
                 print(f"[{idx}] {curso['nome']}")
             print(f"[{len(cursos_nivel) + 1}] Voltar")
@@ -239,7 +260,11 @@ def avaliar_curso(usuario):
     niveis = ["iniciante", "intermediário", "avançado"]
 
     while True:
-        print("\n=== Níveis Disponíveis para Avaliação ===")
+        print("===================================================")
+        print(" ")
+        print("==== SELECIONE O NÍVEL DO CURSO PARA AVALIAÇÃO ====")
+        print(" ")
+        print("===================================================")
         for i, nivel in enumerate(niveis, 1):
             print(f"[{i}] {nivel.capitalize()}")
         print(f"[{len(niveis)+1}] Voltar")
@@ -260,7 +285,11 @@ def avaliar_curso(usuario):
             print(f"Não há cursos cadastrados para o nível {nivel_escolhido}.\n")
             continue
 
-        print(f"\nCursos disponíveis para avaliação no nível {nivel_escolhido.capitalize()}:")
+        print("===================================================")
+        print(" ")
+        print(f"==== SELECIONE O CURSO DO NÍVEL {nivel_escolhido.capitalize()} =====")
+        print(" ")
+        print("===================================================")
         for i, curso in enumerate(cursos_nivel, 1):
             print(f"[{i}] {curso['nome']}")
         print(f"[{len(cursos_nivel)+1}] Voltar ao menu de níveis")
@@ -307,34 +336,63 @@ def avaliar_curso(usuario):
 def editar_dados(usuario):
     nome_antigo = usuario["usuario"]
     while True:
-        print("\n=== MENU DE DADOS PESSOAIS ===")
+        print("===================================================")
+        print(" ")
+        print("============== MENU DE DADOS PESSOAIS =============")
+        print(" ")
+        print("===================================================")
         print("[1] Editar Nome")
         print("[2] Editar Senha")
         print("[3] Editar Idade")
         print("[4] Editar Gênero")
         print("[5] Excluir Conta")
         print("[6] Voltar")
+        print(" ")
+        print("===================================================")
         opcao = input("Escolha uma opção (1-6): ").strip()
 
         if opcao == "1":
-            novo_nome = input("Digite o novo nome: ").strip()
+            novo_nome = input("Digite o novo nome (ou pressione Enter para cancelar): ").strip()
+            if not novo_nome:
+                print("Edição de nome cancelada.")
+                continue
             usuario["usuario"] = novo_nome
+
         elif opcao == "2":
-            nova_senha = input("Digite a nova senha: ").strip()
+            nova_senha = getpass.getpass("Digite a nova senha (ou pressione Enter para cancelar): ").strip()
+            if not nova_senha:
+                print("Edição de senha cancelada.")
+                continue
             usuario["senha"] = hash_senha(nova_senha)
+
         elif opcao == "3":
-            nova_idade = int(input("Digite a nova idade: ").strip())
+            entrada = input("Digite a nova idade (ou pressione Enter para cancelar): ").strip()
+            if not entrada:
+                print("Edição de idade cancelada.")
+                continue
+            if not entrada.isdigit():
+                print("Idade inválida.")
+                continue
+            nova_idade = int(entrada)
             usuario["idade"] = nova_idade
+
         elif opcao == "4":
-            novo_genero = input("Digite o novo gênero (masculino/feminino): ").strip().lower()
+            novo_genero = input("Digite o novo gênero (masculino/feminino (ou pressione Enter para cancelar): ").strip().lower()
+            if not novo_genero:
+                print("Edição de gênero cancelada.")
+                continue
             usuario["genero"] = novo_genero
+
         elif opcao == "5":
             deletar_usuario(usuario)
             break
+
         elif opcao == "6":
             break
+
         else:
             print("Opção inválida.")
+            continue
 
         usuarios = carregar_dados(USUARIO_ARQUIVO)
         for i, u in enumerate(usuarios):
@@ -359,11 +417,17 @@ def deletar_usuario(usuario):
 
 def menu_usuario_autenticado(usuario):
     while True:
-        print("=== MENU USUÁRIO ===")
+        print("===================================================")
+        print(" ")
+        print("=========== MENU DE USUARIO AUTENTICADO ===========")
+        print(" ")
+        print("===================================================")
         print("[1] Ver cursos")
         print("[2] Avaliar curso")
-        print("[3] Editar Dados")
+        print("[3] Editar dados pessoais")
         print("[4] Logout")
+        print(" ")
+        print("===================================================")
         opcao = input("Escolha uma opção entre (1-4): ").strip()
 
         if opcao == "1":
@@ -381,10 +445,16 @@ def menu_usuario_autenticado(usuario):
 
 def menu_usuario():
     while True:
-        print("=== MENU INICIAL ===")
+        print("===================================================")
+        print(" ")
+        print("========= MENU DE USUARIO NÃO AUTENTICADO =========")
+        print(" ")
+        print("===================================================")
         print("[1] Cadastrar")
         print("[2] Login")
         print("[3] Voltar")
+        print(" ")
+        print("===================================================")
         opcao = input("Escolha entre (1-3): ").strip()
 
         if opcao == "1":

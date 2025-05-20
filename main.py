@@ -13,10 +13,16 @@ logger_app.addHandler(file_handler_app)
 def main():
     logger_app.info("Início da execução do sistema.")
     while True:
-        print("=== MENU PRINCIPAL ===")
+        print("===================================================")
+        print(" ")
+        print("====== PLATAFORMA DE EDUCAÇÃO DIGITAL SEGURA ======")
+        print(" ")
+        print("===================================================")
         print("[1] Entrar como usuário")
         print("[2] Entrar como administrador")
         print("[3] Sair")
+        print(" ")
+        print("===================================================")
         opcao = input("Escolha uma opção entre (1-3): ").strip()
 
         if opcao not in {"1", "2", "3"}:

@@ -41,13 +41,17 @@ def autenticar_admin():
     max_tentativas = 3
 
     while tentativas < max_tentativas:
-        print("\n=== Login de Administrador ===")
+        print("===================================================")
+        print(" ")
+        print("============= LOGIN DE ADMINISTRADOR ==============")
+        print(" ")
+        print("===================================================")
         print("Digite 'voltar' a qualquer momento para retornar ao menu anterior.")
 
         usuario = input("Informe o usuário: ").strip()
         if usuario.lower() == "voltar":
             print("Retornando ao menu anterior...\n")
-            return False  # ou use outro valor especial se quiser diferenciar
+            return False 
 
         senha = getpass.getpass("Informe a senha: ").strip()
         if senha.lower() == "voltar":
@@ -70,12 +74,23 @@ def autenticar_admin():
 def cadastrar_curso():
     cursos = carregar_dados(CURSO_ARQUIVO)
 
-    print("\nNíveis disponíveis:")
+    print("===================================================")
+    print(" ")
+    print("============ MENU DE CADASTRO DE CURSO ============")
+    print(" ")
+    print("===================================================")
     print("[1] Iniciante")
     print("[2] Intermediário")
     print("[3] Avançado")
+    print("[0] Voltar")
+    print(" ")
+    print("===================================================")
 
-    nivel_opcao = input("Escolha o nível do curso (1/2/3): ").strip()
+    nivel_opcao = input("Escolha o nível do curso (1/2/3 ou 0 para voltar): ").strip()
+
+    if nivel_opcao == "0":
+        print("Cadastro cancelado. Retornando ao menu anterior.")
+        return
 
     niveis = {"1": "iniciante", "2": "intermediário", "3": "avançado"}
     nivel = niveis.get(nivel_opcao)
@@ -95,7 +110,7 @@ def cadastrar_curso():
         print("Curso já cadastrado.")
         return
 
-    print("Digite o conteúdo do curso (Digite salvar curso em uma linha vazia para finalizar):")
+    print("Digite o conteúdo do curso (Digite 'salvar curso' em uma linha vazia para finalizar):")
     conteudo = []
     total_chars = 0
     while True:
@@ -130,11 +145,17 @@ def ver_cursos():
     niveis = ["iniciante", "intermediário", "avançado"]
 
     while True:
-        print("\n=== MENU DE CURSOS ===")
+        print("===================================================")
+        print(" ")
+        print("============= MENU DE NÍVEIS DE CURSO =============")
+        print(" ")
+        print("===================================================")
         print("[1] Cursos Iniciante")
         print("[2] Cursos Intermediário")
         print("[3] Cursos Avançado")
         print("[4] Voltar ao menu principal")
+        print(" ")
+        print("===================================================")
         opcao = input("Escolha uma opção entre (1-4): ").strip()
 
         if opcao == "4":
@@ -152,7 +173,11 @@ def ver_cursos():
             continue
 
         while True:
-            print(f"\n=== CURSOS NÍVEL {nivel.upper()} ===")
+            print("===================================================")
+            print(" ")
+            print(f"========= CURSOS NÍVEL {nivel.upper()} =========")
+            print(" ")
+            print("===================================================")
             for idx, curso in enumerate(cursos_nivel, 1):
                 print(f"[{idx}] {curso['nome']}")
             print(f"[{len(cursos_nivel) + 1}] Voltar")
@@ -178,69 +203,118 @@ def editar_curso():
         print("Nenhum curso cadastrado para editar.")
         return
 
-    print("\n=== Editar Curso ===")
-    for idx, curso in enumerate(cursos, 1):
-        print(f"[{idx}] {curso['nome']} (Nível: {curso['nivel']})")
-    print(f"[{len(cursos) + 1}] Cancelar")
-
-    escolha = input("Escolha o curso que deseja editar: ").strip()
-
-    if escolha == str(len(cursos) + 1):
-        print("Edição cancelada.")
-        return
-
-    if not escolha.isdigit() or int(escolha) < 1 or int(escolha) > len(cursos):
-        print("Opção inválida.")
-        return
-
-    idx_curso = int(escolha) - 1
-    curso = cursos[idx_curso]
-
-    print(f"Editando curso '{curso['nome']}'")
-
-    novo_nome = input(f"Novo nome (deixe vazio para manter '{curso['nome']}'): ").strip()
-    if novo_nome:
-        if any(c["nome"].lower() == novo_nome.lower() and c != curso for c in cursos):
-            print("Já existe um curso com esse nome. Edição cancelada.")
-            return
-        curso["nome"] = novo_nome
-
-    print("Digite o novo conteúdo do curso (Digite salvar curso em uma linha vazia para finalizar):")
-    conteudo = []
-    total_chars = 0
-    while True:
-        linha = input()
-        if linha == "salvar curso":
-            break
-        total_chars += len(linha)
-        if total_chars > MAX_CONTEUDO_CURSO:
-            print("Conteúdo do curso muito grande. Salvando conteúdo até aqui.")
-            break
-        conteudo.append(linha)
-    if conteudo:
-        curso["conteudo"] = "\n".join(conteudo)
-
-    print("\nNíveis disponíveis:")
-    print("[1] Iniciante")
-    print("[2] Intermediário")
-    print("[3] Avançado")
-    nivel_opcao = input(f"Escolha o nível do curso (atual: {curso['nivel']}, 1/2/3 ou Enter para manter): ").strip()
-
     niveis = {"1": "iniciante", "2": "intermediário", "3": "avançado"}
-    if nivel_opcao:
-        nivel = niveis.get(nivel_opcao)
-        if nivel:
-            cursos_nivel = [c for c in cursos if c["nivel"] == nivel and c != curso]
-            if len(cursos_nivel) >= 7:
-                print(f"Limite de 7 cursos para o nível '{nivel}' já atingido. Nível não alterado.")
-            else:
-                curso["nivel"] = nivel
-        else:
-            print("Nível inválido. Nível não alterado.")
 
-    salvar_dados(CURSO_ARQUIVO, cursos)
-    logger_admin.info(f"Curso editado: {curso['nome']} ({curso['nivel']})")
-    print(f"Curso '{curso['nome']}' editado com sucesso.\n")
+    while True:
+        print("===================================================")
+        print(" ")
+        print("============= MENU DE EDIÇÃO DE CURSO ============")
+        print(" ")
+        print("===================================================")
+        print("[1] Editar curso Iniciante")
+        print("[2] Editar curso Intermediário")
+        print("[3] Editar curso Avançado")
+        print("[0] Voltar")
+        print(" ")
+        print("===================================================")
+        opcao_nivel = input("Escolha o nível dos cursos que deseja editar: ").strip()
+
+        if opcao_nivel == "0":
+            print("Retornando ao menu anterior.")
+            return
+
+        nivel_escolhido = niveis.get(opcao_nivel)
+        if not nivel_escolhido:
+            print("Opção inválida. Tente novamente.")
+            continue
+
+        cursos_nivel = [c for c in cursos if c["nivel"] == nivel_escolhido]
+        if not cursos_nivel:
+            print(f"Não há cursos cadastrados no nível '{nivel_escolhido}'.")
+            continue
+
+        while True:
+
+            print("===================================================")
+            print(" ")
+            print(f"========= CURSOS NÍVEL {nivel_escolhido.capitalize()} =========")
+            print(" ")
+            print("===================================================")
+            for idx, curso in enumerate(cursos_nivel, 1):
+                print(f"[{idx}] {curso['nome']}")
+            print("[0] Voltar")
+            print(" ")
+            print("===================================================")
+
+            escolha = input("Escolha o curso que deseja editar (ou 0 para voltar): ").strip()
+
+            if escolha == "0":
+                break
+
+            if not escolha.isdigit() or int(escolha) < 1 or int(escolha) > len(cursos_nivel):
+                print("Opção inválida. Tente novamente.")
+                continue
+
+            curso = cursos_nivel[int(escolha) - 1]
+
+            print("===================================================")
+            print(" ")
+            print(f"======== EDITANDO CURSO '{curso['nome']}' ========")
+            print(" ")
+            print("===================================================")
+
+            novo_nome = input(f"Novo nome (deixe vazio para manter '{curso['nome']}'): ").strip()
+            if novo_nome:
+                if any(c["nome"].lower() == novo_nome.lower() and c != curso for c in cursos):
+                    print("Já existe um curso com esse nome. Edição cancelada.")
+                    continue
+                curso["nome"] = novo_nome
+
+            print("Digite o novo conteúdo do curso (Digite 'salvar curso' em uma linha vazia para finalizar):")
+            conteudo = []
+            total_chars = 0
+            while True:
+                linha = input()
+                if linha == "salvar curso":
+                    break
+                total_chars += len(linha)
+                if total_chars > MAX_CONTEUDO_CURSO:
+                    print("Conteúdo do curso muito grande. Salvando conteúdo até aqui.")
+                    break
+                conteudo.append(linha)
+            if conteudo:
+                curso["conteudo"] = "\n".join(conteudo)
+
+            print("===================================================")
+            print(" ")
+            print("=========== ESCOLHA O NOVO NÍVEL DO CURSO =========")
+            print(" ")
+            print("===================================================")
+            print("[1] Iniciante")
+            print("[2] Intermediário")
+            print("[3] Avançado")
+            print("[0] Manter nível atual")
+            print(" ")
+            print("===================================================")
+
+            nivel_opcao = input(f"Escolha o novo nível (atual: {curso['nivel']}): ").strip()
+            if nivel_opcao == "0" or not nivel_opcao:
+                print("Mantendo nível atual.")
+            else:
+                novo_nivel = niveis.get(nivel_opcao)
+                if novo_nivel:
+                    outros_cursos_nivel = [c for c in cursos if c["nivel"] == novo_nivel and c != curso]
+                    if len(outros_cursos_nivel) >= 7:
+                        print(f"Limite de 7 cursos para o nível '{novo_nivel}' já atingido. Nível não alterado.")
+                    else:
+                        curso["nivel"] = novo_nivel
+                        print(f"Nível do curso alterado para '{novo_nivel}'.")
+                else:
+                    print("Nível inválido. Nível não alterado.")
+
+            salvar_dados(CURSO_ARQUIVO, cursos)
+            logger_admin.info(f"Curso editado: {curso['nome']} ({curso['nivel']})")
+            print(f"Curso '{curso['nome']}' editado com sucesso.\n")
 
 def excluir_curso():
     cursos = carregar_dados(CURSO_ARQUIVO)
@@ -249,7 +323,11 @@ def excluir_curso():
         print("Nenhum curso cadastrado para excluir.")
         return
 
-    print("\n=== Excluir Curso ===")
+    print("===================================================")
+    print(" ")
+    print("============ MENU DE EXCLUSÃO DE CURSO ============")
+    print(" ")
+    print("===================================================")
     for idx, curso in enumerate(cursos, 1):
         print(f"[{idx}] {curso['nome']} (Nível: {curso['nivel']})")
     print(f"[{len(cursos) + 1}] Cancelar")
@@ -278,11 +356,17 @@ def excluir_curso():
 
 def mostrar_estatisticas():
 
-    print("\n=== Estatísticas do Sistema ===")
+    print("===================================================")
+    print(" ")
+    print("============== MENU DE ESTATÍSTICAS ===============")
+    print(" ")
+    print("===================================================")
     print("[1] Estatísticas de Usuários")
     print("[2] Estatísticas de Acessos")
     print("[3] Estatísticas de Avaliações")
     print("[4] Voltar")
+    print(" ")
+    print("===================================================")
     opcao = input("Escolha uma opção: ")
 
     if opcao == "1":
@@ -301,13 +385,19 @@ def menu_admin():
         return
 
     while True:
-        print("=== MENU ADMIN ===")
+        print("===================================================")
+        print(" ")
+        print("======== MENU DE ADMINISTRADOR AUTENTICADO ========")
+        print(" ")
+        print("===================================================")
         print("[1] Cadastrar curso")
         print("[2] Visualizar cursos")
         print("[3] Editar curso")
         print("[4] Excluir curso")
         print("[5] Ver estatísticas")
         print("[6] Logout")
+        print(" ")
+        print("===================================================")
         opcao = input("Escolha uma opção: ").strip()
 
         if opcao == "1":
