@@ -51,6 +51,7 @@ Este projeto é um sistema educacional desenvolvido em Python, que oferece uma p
 - Navegue até o diretório do projeto: `cd Sistema-Educacional-em-Python`
 - Instale as dependências necessárias: `pip install bcrypt matplotlib`
 - Execute o sistema: `python main.py`
+- Ou execute o arquivo `main.bat` para executar rapidamente no Windows
 
 ---
 

@@ -10,3 +10,6 @@
 2025-05-20 00:17:59,757 - INFO - Admin 'admin' logado.
 2025-05-20 00:22:40,825 - INFO - Admin 'admin' logado.
 2025-05-20 00:25:50,492 - INFO - Admin 'admin' logado.
+2025-05-21 12:30:32,548 - WARNING - Tentativa de login admin inválida.
+2025-05-21 12:30:44,998 - INFO - Admin 'admin' logado.
+2025-05-21 12:30:59,309 - INFO - Admin realizou logout.
