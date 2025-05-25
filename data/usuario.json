@@ -5,5 +5,33 @@
         "tipo": "usuario",
         "genero": "masculino",
         "idade": 18
+    },
+    {
+        "usuario": "Vit\u00f3ria",
+        "senha": "$2b$12$I3KgHVQmACKIA0UnPH3kIeUhjIII92AQi4A3Uaa6bLs1BawRCHQZK",
+        "tipo": "usuario",
+        "genero": "feminino",
+        "idade": 18
+    },
+    {
+        "usuario": "Kaua",
+        "senha": "$2b$12$pjfE.q61llhHMbVlaZYvnedTuP1VZV9M5i.yMuTSgbHjArCXQf9ay",
+        "tipo": "usuario",
+        "genero": "masculino",
+        "idade": 21
+    },
+    {
+        "usuario": "Vitor",
+        "senha": "$2b$12$X3hJ/pobojoctK.IETL7NeKCgito5UN.mQuQ9SN17OFb/tdxlExAC",
+        "tipo": "usuario",
+        "genero": "masculino",
+        "idade": 17
+    },
+    {
+        "usuario": "Juliana",
+        "senha": "$2b$12$D1KZPaSPhThmVmHQ6GOEmOTpVGfM5VYKpoOtY961RpMy8rCR3zUNS",
+        "tipo": "usuario",
+        "genero": "feminino",
+        "idade": 19
     }
 ]

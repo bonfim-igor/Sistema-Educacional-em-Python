@@ -12,5 +12,19 @@
         "nivel": "intermedi\u00e1rio",
         "nota": 5,
         "timestamp": "2025-05-19T12:05:01.284649"
+    },
+    {
+        "usuario": "Vit\u00f3ria",
+        "curso": "Tecnologia da Informa\u00e7\u00e3o Intermedi\u00e1rio",
+        "nivel": "intermedi\u00e1rio",
+        "nota": 5,
+        "timestamp": "2025-05-25T12:13:13.346138"
+    },
+    {
+        "usuario": "Vit\u00f3ria",
+        "curso": "Tecnologia da Informa\u00e7\u00e3o Iniciante",
+        "nivel": "iniciante",
+        "nota": 4,
+        "timestamp": "2025-05-25T12:13:21.063912"
     }
 ]
